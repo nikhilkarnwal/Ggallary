@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.imageViewHolder> {
-    private ArrayList<String> filepath=new ArrayList<>();
+    private ArrayList<String> filepath;
 
-    public RecyclerAdapter(ArrayList<String> file)
+    RecyclerAdapter(ArrayList<String> file)
     {
         this.filepath=file;
     }
@@ -21,15 +22,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.imageV
     @NonNull
     @Override
     public RecyclerAdapter.imageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.album,viewGroup,false);
-        imageViewHolder imageViewHolder=new imageViewHolder(view);
-        return imageViewHolder;
+        LayoutInflater inflater=LayoutInflater.from(viewGroup.getContext());
+        View view=inflater.inflate(R.layout.album,viewGroup,false);
+        return new imageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.imageViewHolder imageViewHolder, int i) {
-        String s= filepath.get(i);
-        imageViewHolder.album.setImageResource(Integer.parseInt(s));
+        int s= filepath.indexOf(i);
+        imageViewHolder.album.setImageResource(s);
 
     }
 
@@ -44,7 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.imageV
 
         public imageViewHolder(@NonNull View itemView) {
             super(itemView);
-            album=itemView.findViewById(R.id.album);
+            album=itemView.findViewById(R.id.img_album);
 
         }
     }
