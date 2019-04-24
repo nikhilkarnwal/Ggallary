@@ -63,6 +63,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    
+    public boolean getWritePermission() {
+        int currPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (currPermission != PackageManager.PERMISSION_GRANTED) {
+            makeRequest();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    private void makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1022);
+    }
 
 
 }
